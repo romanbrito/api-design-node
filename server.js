@@ -1,5 +1,4 @@
-
-// TODO: user app.params to find the lion using the id
+// TODO: user app.param to find the lion using the id
 // and then attach the lion to the req object and call next. Then in
 // '/lion/:id' just send back req.lion
 
@@ -12,6 +11,7 @@
 
 import express from 'express';
 import bodyParser from 'body-parser';
+
 const app = express();
 import _ from 'lodash';
 import morgan from 'morgan';
@@ -21,6 +21,11 @@ let id = 0;
 
 const updateId = (req, res, next) => {
   // fill this out. this is the route middleware for the ids
+  if (!req.body.id) {
+    id++;
+    req.body.id = id + '';
+  }
+  next();
 };
 
 app.use(morgan('dev'));
@@ -28,9 +33,16 @@ app.use(express.static('client'));
 app.use(bodyParser.urlencoded({extended: true})); // body parser makes it possible to post JSON to the server
 app.use(bodyParser.json());                       // we can access data we post on as req.body
 
-app.param('id', function(req, res, next, id) {
+app.param('id', (req, res, next, id) => {
   // fill this out to find the lion based off the id
-  // and attach it to req.lion. Rember to call next()
+  // and attach it to req.lion. Remember to call next()
+  let lion = _.find(lions, {id}); // same as id:id
+  if (lion) {
+    req.lion = lion;
+    next();
+  } else {
+    res.send(); // send error  with next( new Error() );
+  }
 });
 
 app.get('/lions', (req, res) => {
@@ -38,14 +50,12 @@ app.get('/lions', (req, res) => {
 });
 
 app.get('/lions/:id', (req, res) => {
-  let lion = _.find(lions, {id: req.parms.id});
-  res.json(lion || {});
+  // let lion = _.find(lions, {id: req.parms.id});
+  res.json(req.lion || {});
 });
 
 app.post('/lions', updateId, (req, res) => {
   let lion = req.body;
-  // id++;
-  // lion.id = id + '';
   lions.push(lion);
   res.json(lion);
 });
@@ -74,6 +84,13 @@ app.delete('/lions/:id', (req, res) => {
     let deletedLion = lions[lion];
     lions.splice(lion, 1);
     res.json(deletedLion);
+  }
+});
+
+app.use((err, req, res, next) => {
+  if (err) {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
   }
 });
 
