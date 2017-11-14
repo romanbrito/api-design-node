@@ -28,7 +28,10 @@ app.use(express.static('client'));
 app.use(bodyParser.urlencoded({extended: true})); // body parser makes it possible to post JSON to the server
 app.use(bodyParser.json());                       // we can access data we post on as req.body
 
-// TODO: make the REST routes to perform CRUD on lions
+app.param('id', function(req, res, next, id) {
+  // fill this out to find the lion based off the id
+  // and attach it to req.lion. Rember to call next()
+});
 
 app.get('/lions', (req, res) => {
   res.json(lions);
@@ -39,10 +42,10 @@ app.get('/lions/:id', (req, res) => {
   res.json(lion || {});
 });
 
-app.post('/lions', (req, res) => {
+app.post('/lions', updateId, (req, res) => {
   let lion = req.body;
-  id++;
-  lion.id = id + '';
+  // id++;
+  // lion.id = id + '';
   lions.push(lion);
   res.json(lion);
 });
@@ -52,6 +55,7 @@ app.put('/lions/:id', (req, res) => {
   if (update.id) {
     delete update.id
   }
+
   let lion = _.findIndex(lions, {id: req.params.id});
   if (!lions[lion]) {
     res.send();
