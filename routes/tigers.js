@@ -16,56 +16,54 @@ const updateId = (req, res, next) => {
 };
 
 tigerRouter.param('id', (req, res, next, id) => {
-  // fill this out to find the lion based off the id
-  // and attach it to req.lion. Remember to call next()
-  let lion = _.find(tigers, {id}); // same as id:id
-  if (lion) {
-    req.lion = lion;
+  // fill this out to find the tiger based off the id
+  // and attach it to req.tiger. Remember to call next()
+  let tiger = _.find(tigers, {id}); // same as id:id
+  if (tiger) {
+    req.tiger = tiger;
     next();
   } else {
     res.send(); // send error  with next( new Error() );
   }
 });
 
-tigerRouter.get('/', (req, res) => {
+tigerRouter.route('/')
+  .get( (req, res) => {
   res.json(tigers);
+})
+  .post(updateId, (req, res) => {
+  let tiger = req.body;
+  tigers.push(tiger);
+  res.json(tiger);
 });
 
-tigerRouter.get('/:id', (req, res) => {
-  // let lion = _.find(tigers, {id: req.parms.id});
-  res.json(req.lion || {});
-});
-
-tigerRouter.post('/', updateId, (req, res) => {
-  let lion = req.body;
-  tigers.push(lion);
-  res.json(lion);
-});
-
-tigerRouter.put('/:id', (req, res) => {
+tigerRouter.route('/:id')
+  .get( (req, res) => {
+  // let tiger = _.find(tigers, {id: req.parms.id});
+  res.json(req.tiger || {});
+})
+  .put( (req, res) => {
   let update = req.body;
   if (update.id) {
     delete update.id
   }
-
-  let lion = _.findIndex(tigers, {id: req.params.id});
-  if (!tigers[lion]) {
+  let tiger = _.findIndex(tigers, {id: req.params.id});
+  if (!tigers[tiger]) {
     res.send();
   } else {
-    let updatedLion = _.assign(tigers[lion], update);
-    res.json(updatedLion);
+    let updatedtiger = _.assign(tigers[tiger], update);
+    res.json(updatedtiger);
   }
-});
+})
+  .delete( (req, res) => {
+  let tiger = _.findIndex(tigers, {id: req.params.id});
 
-tigerRouter.delete('/:id', (req, res) => {
-  let lion = _.findIndex(tigers, {id: req.params.id});
-
-  if (!tigers[lion]) {
+  if (!tigers[tiger]) {
     res.send();
   } else {
-    let deletedLion = tigers[lion];
-    tigers.splice(lion, 1);
-    res.json(deletedLion);
+    let deletedtiger = tigers[tiger];
+    tigers.splice(tiger, 1);
+    res.json(deletedtiger);
   }
 });
 
