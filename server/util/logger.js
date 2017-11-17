@@ -15,7 +15,7 @@ const noop = () => {};
 const consoleLog = config.logging ? console.log.bind(console) : noop;
 
 const logger = {
-  log: () => {
+  log() {
     // arguments is an array like object with all the passed
     // in arguments to this function
     let args = _.toArray(arguments)

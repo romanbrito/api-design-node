@@ -19,8 +19,19 @@ config.env = process.env.NODE_ENV;
 // add assign the value to envConfig so the merge at the bottom actually works.
 // What's happening here is that we have a base config in this file then we
 // conditionally load in another config file depending on what
-// env we are in. We then merge those objects with the env config overriting
+// env we are in. We then merge those objects with the env config overwriting
 // the default config if here. We then export that new object for our app to use
-const envConfig = {};
+
+let envConfig = {};
+
+try {
+  envConfig = require('./' + config.env).default;
+
+  // just making sure the require actually
+  // got something back
+  envConfig = envConfig || {};
+} catch (e) {
+  envConfig = {};
+}
 
 export default _.merge(config, envConfig);
