@@ -4,7 +4,8 @@ import err from './middleware/err';
 import config from './config/config';
 import mongoose from 'mongoose';
 // db.url is different depending on NODE_ENV
-mongoose.connect(config.db.uri);
+
+mongoose.connect(config.db.url);
 
 
 //setup the app middleware
