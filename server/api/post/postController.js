@@ -3,6 +3,8 @@ import _ from 'lodash';
 
 export const params = (req, res, next, id) =>{
   Post.findById(id)
+    .populate('author categores')
+    .exec() // because populate does not return a promise but then do
     .then((post) => {
     if (!post) {
       next(new Error('No post with that id'));
@@ -18,6 +20,8 @@ export const params = (req, res, next, id) =>{
 export const get = (req, res, next) => {
   // need to populate here
   Post.find({})
+    .populate('author categories')
+    .exec()
     .then((posts) => {
     res.json(posts);
     }, (err) => {
