@@ -55,7 +55,7 @@ export const post = (req, res, next) =>{
     })
 };
 
-export const delete = (req, res, next) =>{
+export const del = (req, res, next) =>{
   req.user.remove((err, removed) => {
     if (err) {
       next(err);

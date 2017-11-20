@@ -1,4 +1,4 @@
-export default createRoutes = (controller, router) => {
+ const createRoutes = (controller, router) => {
   router.param('id', controller.params);
 
   router.route('/')
@@ -8,5 +8,7 @@ export default createRoutes = (controller, router) => {
   router.route('/:id')
     .get(controller.getOne)
     .put(controller.put)
-    .delete(controller.delete);
+    .delete(controller.del);
 };
+
+ export default createRoutes;
