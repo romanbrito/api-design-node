@@ -70,3 +70,20 @@ actionPromise()
 .catch((err)=>{
   console.log(err);
 });
+
+// I could return a promise, I could return a regular value.
+//   Whatever I return here is going to be a promise.
+//   So that's how you would deal with nested ' +
+// 'callbacks and chaining of the promises. Just make sure that ' +
+// 'you return something to one of these. So a good pattern what people do is they ' +
+// 'will just define these functions, these callback functions somewhere else. So just ' +
+// 'like okay, read file, .then, logFile, and then .then, sendEmail, .then, you know, ' +
+// 'callHome, whatever.
+
+// readfile()
+// .then(logFile)
+// .then(sendEmail)
+// .then(callHome)
+// .catch((err) => {
+//   console.log(err);
+// });
