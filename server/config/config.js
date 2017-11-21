@@ -8,9 +8,9 @@ const config = {
   prod: 'production',
   port: process.env.PORT || 3000,
   // 10 days in minutes
-  expireTime: 24 * 60 * 10,
+  expireTime: '10 days',
   secrets: {
-    jwt: process.env.JWT || 'gumball'
+    jwt: process.env.JWT || 'gumball' // don't do this in production
   }
 };
 

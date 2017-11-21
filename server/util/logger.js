@@ -43,7 +43,7 @@ const logger = {
       const name = arg.name || '[ ❌ ERROR ❌ ]';
       const log = name.yellow + '  ' + arg.red;
       return log;
-      })
+      });
 
     consoleLog.apply(console, args);
 

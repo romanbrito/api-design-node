@@ -7,7 +7,7 @@ import logger from './logger';
 logger.log('Seeding the Database');
 
 const users = [
-  {username: 'Jimylo', password: 'test'},
+  {username: 'Jimmylo', password: 'test'},
   {username: 'Xoko', password: 'test'},
   {username: 'katamon', password: 'test'}
 ];
