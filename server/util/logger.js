@@ -16,6 +16,7 @@ const consoleLog = config.logging ? console.log.bind(console) : noop;
 
 const logger = {
   log() {
+    const tag = '[ ✨ LOG ✨ ]'.green;
     // arguments is an array like object with all the passed
     // in arguments to this function
     let args = _.toArray(arguments)
@@ -23,12 +24,10 @@ const logger = {
       if(typeof arg === 'object') {
         // turn the object to a string so we
         // can log all the properties and color it
-        const string = JSON.stringify(arg, 2);
-        return string.magenta;
+        const string = JSON.stringify(arg, null, 2);
+        return tag + '  ' + string.cyan;
       } else {
-        // coerce to string to color
-        arg+='';
-        return arg.magenta;
+        return tag + '  ' + arg.cyan;
       }
       });
 
@@ -36,6 +35,18 @@ const logger = {
     // with the console object as the context
     // and the new colored args :)
     consoleLog.apply(console, args);
+  },
+  error() {
+    let args = _.toArray(arguments)
+      .map((arg) => {
+      arg = arg.stack || arg;
+      const name = arg.name || '[ ❌ ERROR ❌ ]';
+      const log = name.yellow + '  ' + arg.red;
+      return log;
+      })
+
+    consoleLog.apply(console, args);
+
   }
 };
 
