@@ -27,6 +27,6 @@ router.use('/categories', categoryRoutes);
 router.use('/posts', postRoutes);
 router.use('/messages', messageRoutes);
 
-router.use('/register', auth);
+router.use('/', auth);
 
 export default router;
