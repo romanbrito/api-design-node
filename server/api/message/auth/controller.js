@@ -8,5 +8,7 @@ export const post = (req, res) => {
   const user = users[index];
   user.id = index;
   const token = jwt.sign(user.id, '123'); // secret '123' should be passed from env var in production
-  res.json(token);
+  res.json({
+    firstName: user.firstName,
+    token});
 };
