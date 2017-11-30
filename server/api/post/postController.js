@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 export const params = (req, res, next, id) =>{
   Post.findById(id)
-    .populate('author categores')
+    .populate('author', 'username') // will give you the author object but only 'username'
+    // only 'author' will give the entire object
     .exec() // because populate does not return a promise but then do
     .then((post) => {
     if (!post) {
@@ -50,7 +51,7 @@ export const put = (req, res, next) =>{
 
 export const post = (req, res, next) => {
   const newpost = req.body;
-
+  newpost.author = req.user._id;
   Post.create(newpost)
     .then((post) => {
     res.json(post);

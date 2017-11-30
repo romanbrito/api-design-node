@@ -9,7 +9,12 @@ const middleware = app => {
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({ extended: true}));
   app.use(bodyParser.json());
-  app.use(cors());
+  app.use(cors()); //enable cors to share resource a cross different origins
+  // or manually cors:
+  // app.use((req, res, next) => {
+  //   res.header("Access-Control-Allow-Origin", "*");
+  //   res.header("Access-Control-Allow-Headers", "Origin", X-Requested-With, Content-Type, Accept");
+  //   next();
   app.use(override());
 };
 

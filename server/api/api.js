@@ -3,6 +3,9 @@ const router = Router();
 import userRoutes from './user/userRoutes';
 import categoryRoutes from './category/categoryRoutes';
 import postRoutes from './post/postRoutes';
+import messageRoutes from './message/messageRoutes';
+
+import auth from './message/auth/routes';
 
 // api router will mount other routers
 // for all our resources. Each resource directory
@@ -22,5 +25,8 @@ import postRoutes from './post/postRoutes';
 router.use('/users', userRoutes);
 router.use('/categories', categoryRoutes);
 router.use('/posts', postRoutes);
+router.use('/messages', messageRoutes);
+
+router.use('/register', auth);
 
 export default router;
