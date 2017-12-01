@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-let users = [{firstName: "a", email: "a", password: "a", id: 0}];
+export let users = [{firstName: "a", email: "a", password: "a", id: 0}];
 
 export const postRegister = (req, res) => {
   const index = users.push(req.body) - 1;
