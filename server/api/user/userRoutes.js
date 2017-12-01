@@ -1,8 +1,8 @@
 import {Router} from 'express';
-const router = Router();
 import logger from '../../util/logger';
 import * as controller from './userController';
 import * as auth from '../../auth/auth';
+const router = Router();
 // checkUser will secure routes when on middleware
 const checkUser = [auth.decodeToken(), auth.getFreshUser()];
 

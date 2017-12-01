@@ -1,11 +1,12 @@
 import {Router} from 'express';
 const router = Router();
-import userRoutes from './user/userRoutes';
+//import userRoutes from './user/userRoutes';
 import categoryRoutes from './category/categoryRoutes';
 import postRoutes from './post/postRoutes';
-import messageRoutes from './message/messageRoutes';
 
+import messageRoutes from './message/messageRoutes';
 import auth from './message/auth/routes';
+import userRoutes from './message/user/userRoutes';
 
 // api router will mount other routers
 // for all our resources. Each resource directory
@@ -23,10 +24,12 @@ import auth from './message/auth/routes';
 
 
 router.use('/users', userRoutes);
+
 router.use('/categories', categoryRoutes);
 router.use('/posts', postRoutes);
-router.use('/messages', messageRoutes);
 
+router.use('/messages', messageRoutes);
 router.use('/', auth);
+
 
 export default router;
