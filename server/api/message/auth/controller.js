@@ -36,3 +36,17 @@ function sendToken(user, res) {
     firstName: user.firstName,
     token});
 }
+
+export const checkAuthenticated = function checkAuthenticated(req, res, next) {
+  if(!req.header('authorization'))
+    return res.status(401).send({message: 'Unauthorized requested.  Missing authentication header'});
+  const token = req.header('authorization').split(' ')[1];
+  const payload = jwt.decode(token, '123');
+
+  if(!payload)
+    return res.status(401).send({message: 'Unauthorized requested. Authentication header invalid'});
+
+  req.user = payload;
+
+  next();
+}
