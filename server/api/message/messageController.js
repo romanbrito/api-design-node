@@ -10,9 +10,10 @@ export const params = (req, res, next, user) => {
 
 export const get = (req, res, next) => {
   Message.find({})
-    .populate('author')
+    .populate('author', '-password')
     .exec()
     .then( messages => {
+      console.log(messages);
       res.json(messages);
     }, err => {
       next(err)
