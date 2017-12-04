@@ -6,7 +6,7 @@ const config = {
   dev: 'development',
   test: 'testing',
   prod: 'production',
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 4000,
   // 10 days in minutes
   expireTime: '10 days',
   secrets: {
